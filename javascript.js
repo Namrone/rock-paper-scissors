@@ -11,7 +11,7 @@ function getComputerChoice(){
     }
 }
 
-function playRound(playerSelection, computerSelection, playerWin, computerWin){
+function playRound(playerSelection, computerSelection){
     if(playerSelection == computerSelection){
         return 0;
     }
@@ -23,35 +23,72 @@ function playRound(playerSelection, computerSelection, playerWin, computerWin){
     }
 }
 
-function playGame(){
-    let playerInput = prompt("Please choose either Rock, Paper, or Scissors").toLowerCase();
-    let stuck=null;
-    while(stuck==null){
-        if(playerInput == 'rock' || playerInput == 'paper' || playerInput == 'scissors' || playerInput == 'scissor'){
-            stuck = 1;
-        }
-        else{
-            playerInput = prompt("That was an invalid response. Please choose either Rock, Paper, or Scissors").toLowerCase();
-        }
-    }
+function createThreeChoice(){
+    const rockChoice = document.querySelector("rock");
+    const rockBtn = document.createElement("button");
+    rockBtn.textContent = "Rock";
+    
+    const paperChoice = document.querySelector("paper");
+    const paperBtn = document.createElement("button");
+    paperBtn.textContent = "Paper";
+    
+    const scissorsChoice = document.querySelector("scissors");
+    const scissorsBtn = document.createElement("button");
+    scissorsBtn.textContent = "Scissor";
 
-    const playerSelection = playerInput;
+    rockChoice.appendChild(rockBtn);
+    paperChoice.appendChild(paperBtn);
+    scissorsChoice.appendChild(scissorsBtn);
+    
+    rockBtn.addEventListener("click", () => "rock");
+    paperBtn.addEventListener("click", () => "paper");
+    scissorsBtn.addEventListener("click", () => "scissors");
+}
+
+function deleteChoice(){
+    rockChoice.removeChild(rockBtn);
+    paperChoice.removeChild(paperBtn);
+    scissorsBtn.removeChile(scissorsBtn);
+}
+
+const scoreBoard = document.querySelector("content");
+const playAgain = document.createElement("button");
+playAgain.textContent = "Play Again";
+
+function deleteScore(){
+    scoreBoard.removeChild(playAgain);
+    scoreBoard.removeChild(score);
+}
+
+function displayScore(playerWin, computerWin){
+    const score = document.createElement("p")
+    score.textContent = "The score is Player Wins: " + playerWin + " to Computer Wins: " + computerWin;
+
+    scoreBoard.appendChild(playAgain);
+    scoreBoard.appendChild(score);
+
+    playAgain.addEventListener("click", deleteScore());
+}
+
+function playGame(){
+    const playerSelection = createThreeChoice();
     const computerSelection = getComputerChoice();
-    let result = playRound(playerSelection, computerSelection, playerWin, computerWin);
+    let result = playRound(playerSelection, computerSelection);
     if(result == 1){
         playerWin += 1;
-        console.log("You Win! " + playerSelection + " beats " + computerSelection + ". The score is Player Wins: " + playerWin + " to Computer Wins: " + computerWin);
+        deleteChoice();
+        displayScore(playerWin, computerWin);
     }
     else if(result == 2){
         computerWin += 1;
-        console.log("You Lose! "+ playerSelection + " loses to " + computerSelection + ". The score is Player Wins: " + playerWin + " to Computer Wins: " + computerWin);
+        deleteChoice();
+        displayScore(playerWin, computerWin);
     }
     else{
-        console.log("It's a tie. The score is Player Wins: " + playerWin + " to Computer Wins: " + computerWin);
+        deleteChoice();
+        displayScore(playerWin, computerWin);
     }
 }
 
 let playerWin = 0, computerWin = 0;
-for(let plays = 0; plays < 5; plays++){
-    playGame();
-}
+playGame();
