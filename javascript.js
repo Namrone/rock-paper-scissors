@@ -24,17 +24,20 @@ function playRound(playerSelection, computerSelection){
 }
 
 function createThreeChoice(){
-    const rockChoice = document.querySelector("rock");
-    const rockBtn = document.createElement("button");
+    const rockChoice = document.querySelector(".rock");
+    const rockBtn = document.createElement("BUTTON");
     rockBtn.textContent = "Rock";
-    
-    const paperChoice = document.querySelector("paper");
-    const paperBtn = document.createElement("button");
+    rockBtn.className = "button";
+
+    const paperChoice = document.querySelector(".paper");
+    const paperBtn = document.createElement("BUTTON");
     paperBtn.textContent = "Paper";
-    
-    const scissorsChoice = document.querySelector("scissors");
-    const scissorsBtn = document.createElement("button");
+    paperBtn.className = "button";
+
+    const scissorsChoice = document.querySelector(".scissors");
+    const scissorsBtn = document.createElement("BUTTON");
     scissorsBtn.textContent = "Scissor";
+    scissorsBtn.className = "button";
 
     rockChoice.appendChild(rockBtn);
     paperChoice.appendChild(paperBtn);
@@ -45,29 +48,25 @@ function createThreeChoice(){
     scissorsBtn.addEventListener("click", () => "scissors");
 }
 
-function deleteChoice(){
-    rockChoice.removeChild(rockBtn);
-    paperChoice.removeChild(paperBtn);
-    scissorsBtn.removeChile(scissorsBtn);
-}
-
-const scoreBoard = document.querySelector("content");
-const playAgain = document.createElement("button");
-playAgain.textContent = "Play Again";
-
-function deleteScore(){
-    scoreBoard.removeChild(playAgain);
-    scoreBoard.removeChild(score);
+function deleteButton(){
+    const removal = document.getElementsByClassName("button");
+    while(removal.length > 0){removal[0].parentNode.removeChild(removal[0]);}
 }
 
 function displayScore(playerWin, computerWin){
+    const scoreBoard = document.querySelector(".content");
+    const playAgain = document.createElement("BUTTON");
+    playAgain.textContent = "Play Again";
+    playAgain.className = "button";
+
     const score = document.createElement("p")
     score.textContent = "The score is Player Wins: " + playerWin + " to Computer Wins: " + computerWin;
+    score.className = "button";
 
     scoreBoard.appendChild(playAgain);
     scoreBoard.appendChild(score);
 
-    playAgain.addEventListener("click", deleteScore());
+    playAgain.addEventListener("click", deleteButton());
 }
 
 function playGame(){
@@ -76,16 +75,16 @@ function playGame(){
     let result = playRound(playerSelection, computerSelection);
     if(result == 1){
         playerWin += 1;
-        deleteChoice();
+        deleteButton();
         displayScore(playerWin, computerWin);
     }
     else if(result == 2){
         computerWin += 1;
-        deleteChoice();
+        deleteButton();
         displayScore(playerWin, computerWin);
     }
     else{
-        deleteChoice();
+        deleteButton();
         displayScore(playerWin, computerWin);
     }
 }
