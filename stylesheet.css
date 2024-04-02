@@ -1,12 +1,19 @@
-body{
+body,.content{
     display:flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 20px;
 }
 
-.rock, .paper, .scissors{
+.items{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+.rockBox, .paperBox, .scissorsBox{
     display: flex;
     flex-direction: column;
-    align-items: center;
 }
