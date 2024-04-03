@@ -61,15 +61,36 @@ function removeScore(){
 }
 
 function displayScore(playerWin, computerWin){
-    score.textContent = "The score is Player Wins: " + playerWin + " to Computer Wins: " + computerWin;
-    scoreBoard.appendChild(playAgain);
-    scoreBoard.appendChild(score);
+    if(playerWin == 5){
+        const win = document.querySelector(".title");
+        winText = document.createElement("p");
+        winText.textContent = "You Win!";
+        win.appendChild(winText);
 
-    playAgain.addEventListener("click", function playClick(){
-        removeScore();
-        startGame();
-        playAgain.removeEventListener("click", playClick);
-    });
+        score.textContent = "The score is Player Wins: " + playerWin + " to Computer Wins: " + computerWin;
+        scoreBoard.appendChild(score);
+    }
+    else if(computerWin == 5){
+        const loss = document.querySelector(".title");
+        lossText = document.createElement("p");
+        lossText.textContent = "You Lose";
+        loss.appendChild(lossText);
+        
+        score.textContent = "The score is Player Wins: " + playerWin + " to Computer Wins: " + computerWin;
+        scoreBoard.appendChild(score);
+    }
+    else{
+        score.textContent = "The score is Player Wins: " + playerWin + " to Computer Wins: " + computerWin;
+        scoreBoard.appendChild(playAgain);
+        scoreBoard.appendChild(score);
+    
+        console.log(playerWin, computerWin);
+    
+        playAgain.addEventListener("click", function playClick(){
+            //removeScore();
+            document.addEventListener("DOMContentLoaded", () => startGame());
+        });
+    }
 }
 
 function playGame(playerSelection){
@@ -93,4 +114,4 @@ function playGame(playerSelection){
 }
 
 let playerWin = 0, computerWin = 0;
-startGame();
+document.addEventListener("DOMContentLoaded", () => startGame());
